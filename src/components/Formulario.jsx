@@ -10,10 +10,10 @@ const Formulario = () => {
       .min(3, "El Nombre es muy corto")
       .max(20, "Nombre muy largo")
       .required("El nombre del cliente es obligatorio"),
-    empresa: "",
+    /*   empresa: "",
     email: "",
     telefono: "",
-    notas: "",
+    notas: "", */
   });
   return (
     <div className="bg-white mt-10 px-5 py-10 rounded-md shadow-md md:w-3/4 mx-auto">
