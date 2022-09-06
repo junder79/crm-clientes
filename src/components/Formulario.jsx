@@ -2,9 +2,26 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Alerta from "./Alerta";
-
+import { useNavigate } from "react-router-dom";
 const Formulario = () => {
-  const handleSubmit = (valores) => {};
+  const navigate = useNavigate();
+  const handleSubmit = async (valores) => {
+    try {
+      const url = "http://localhost:4000/clientes";
+      const respuesta = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(valores),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const resultado = await respuesta.json();
+      navigate("/clientes");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const nuevoClienteSchema = Yup.object().shape({
     nombre: Yup.string()
       .min(3, "El Nombre es muy corto")
@@ -103,6 +120,7 @@ const Formulario = () => {
             <input
               type="submit"
               value={"Agregar Cliente"}
+              onClick={() => handleSubmit()}
               className="mt-5 w-full bg-blue-800 p-3 text-white uppercase font-bold text-lg"
             />
           </Form>
